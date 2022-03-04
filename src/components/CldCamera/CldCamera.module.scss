@@ -1,0 +1,22 @@
+
+.camera {
+
+}
+
+.stageContainer {
+  position: relative;
+  background-color: black;
+}
+
+.stage {
+
+  margin: auto;
+
+  video,
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+}
