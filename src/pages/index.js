@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -5,8 +6,32 @@ import CldCamera from '@components/CldCamera';
 
 import styles from '@styles/Home.module.scss'
 
-export default function Home() {
+const availableFilters = [
+  'al_dente',
+  'athena',
+  'audrey',
+  'aurora',
+  'daguerre',
+  'eucalyptus',
+  'fes',
+  'frost',
+  'hairspray',
+  'hokusai',
+  'incognito',
+  'linen',
+  'peacock',
+  'primavera',
+  'quartz',
+  'red_rock',
+  'refresh',
+  'sizzle',
+  'sonnet',
+  'ukulele',
+  'zorro'
+]
 
+export default function Home() {
+  const [filter, setFilter] = useState();
 
   return (
     <div className={styles.container}>
@@ -17,7 +42,17 @@ export default function Home() {
       </Head>
 
       <main>
-        <CldCamera className={styles.camera} />
+        <CldCamera className={styles.camera} filter={filter} />
+        <h2>Filters</h2>
+        <ul>
+          {availableFilters.map(filter => {
+            return (
+              <li key={filter}>
+                <button onClick={() => setFilter(filter)}>{ filter }</button>
+              </li>
+            )
+          })}
+        </ul>
       </main>
     </div>
   )

@@ -16,12 +16,20 @@ const cld = new Cloudinary({
   }
 });
 
-const CldCamera = ({ ...props }) => {
+const CldCamera = ({ filter, ...props }) => {
   const [cldData, setCldData] = useState();
 
   const { image } = useCamera();
 
-  const src = cldData && cld.image(cldData.public_id).format('auto').quality('auto').toURL();
+  const cloudImage = cldData && cld.image(cldData.public_id).format('auto').quality('auto')
+  let src;
+
+  if ( cloudImage ) {
+    if ( filter ) {
+      cloudImage.effect(`e_art:${filter}`);
+    }
+    src = cloudImage.toURL();
+  }
 
   useEffect(() => {
     if ( !image ) {
