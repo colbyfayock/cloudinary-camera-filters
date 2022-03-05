@@ -29,8 +29,8 @@ const CldCamera = ({ ...props }) => {
 
   const { image } = useCamera();
 
-  const cloudImage = cld.image('rrm3q6isbrespeeotkr7').format('auto').quality('auto')
-  // const cloudImage = cldData && cld.image(cldData.public_id).format('auto').quality('auto')
+  // const cloudImage = cld.image('rrm3q6isbrespeeotkr7').format('auto').quality('auto')
+  const cloudImage = cldData && cld.image(cldData.public_id).format('auto').quality('auto')
   let src;
 
   if ( cloudImage ) {
