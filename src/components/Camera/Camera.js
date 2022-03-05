@@ -68,7 +68,7 @@ const Camera = ({ className, src: defaultSrc }) => {
             </Button>
           </li>
           <li>
-            <Button onClick={resetCapture}>
+            <Button onClick={resetCapture} color="red">
               Reset
             </Button>
           </li>

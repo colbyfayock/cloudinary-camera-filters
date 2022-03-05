@@ -17,4 +17,14 @@
     background-color: lighten($color-button-background, 10);
   }
 
+  &[data-color="red"] {
+
+    background-color: $color-red;
+
+    &:hover {
+      background-color: lighten($color-red, 10);
+    }
+
+  }
+
 }

@@ -5,7 +5,7 @@ import { useCamera } from '@hooks/useCamera';
 
 import Camera from '@components/Camera';
 
-import { FILTERS_ART } from '@data/filters';
+import { FILTERS_ART, FILTERS_OVERLAYS } from '@data/filters';
 
 import styles from './CldCamera.module.scss';
 
@@ -25,18 +25,28 @@ const cld = new Cloudinary({
 
 const CldCamera = ({ ...props }) => {
   const [cldData, setCldData] = useState();
+
+  // const cldData = {
+  //   public_id: 'rrm3q6isbrespeeotkr7'
+  // }
+  // const setCldData = () => {};
+
   const [filter, setFilter] = useState();
 
   const { image } = useCamera();
 
-  // const cloudImage = cld.image('rrm3q6isbrespeeotkr7').format('auto').quality('auto')
-  const cloudImage = cldData && cld.image(cldData.public_id).format('auto').quality('auto')
+  const cloudImage = cldData && cld.image(cldData.public_id).format('auto').quality('auto');
   let src;
 
   if ( cloudImage ) {
-    if ( filter ) {
+    if ( filter?.transformations ) {
+      filter.transformations.forEach(transformation => {
+        cloudImage.addTransformation(transformation);
+      });
+    } else if ( filter ) {
       cloudImage.effect(`e_${filter.type}:${filter.name}`);
     }
+
     src = cloudImage.toURL();
   }
 
@@ -63,10 +73,34 @@ const CldCamera = ({ ...props }) => {
 
       {cloudImage && (
         <div className={styles.effects}>
+          <h2>Overlays</h2>
+          <ul className={styles.filters}>
+            {FILTERS_OVERLAYS.map(overlayFilter => {
+              let thumb = cld.image(cldData.public_id)
+                              .format('auto')
+                              .quality('auto')
+                              .resize(`w_${FILTER_THUMB_WIDTH},h_${FILTER_THUMB_HEIGHT}`);
+
+              overlayFilter.transformations.forEach(transformation => {
+                thumb.addTransformation(transformation);
+              });
+
+              thumb = thumb.toURL();
+
+              return (
+                <li key={overlayFilter.name} data-is-active-filter={overlayFilter.title === filter?.title}>
+                  <button className={styles.filterThumb} onClick={() => setFilter(overlayFilter)}>
+                    <img width={FILTER_THUMB_WIDTH} height={FILTER_THUMB_HEIGHT} src={thumb} alt={overlayFilter.name} />
+                    <span>{ overlayFilter.title }</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
           <h2>Art Filters</h2>
           <ul className={styles.filters}>
             {artFilters.map(artFilter => {
-              const thumb = cld.image('rrm3q6isbrespeeotkr7')
+              const thumb = cld.image(cldData.public_id)
                               .format('auto')
                               .quality('auto')
                               .resize(`w_${FILTER_THUMB_WIDTH},h_${FILTER_THUMB_HEIGHT}`)
