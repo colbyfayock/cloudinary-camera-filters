@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 
+import Button from '@components/Button';
+
 import { useCamera } from '@hooks/useCamera';
 
 import styles from './Camera.module.scss';
@@ -61,14 +63,14 @@ const Camera = ({ className, src: defaultSrc }) => {
       <div className={styles.controls}>
         <ul>
           <li>
-            <button onClick={handleOnCapture}>
+            <Button onClick={handleOnCapture}>
               Capture photo
-            </button>
+            </Button>
           </li>
           <li>
-            <button onClick={resetCapture}>
+            <Button onClick={resetCapture}>
               Reset
-            </button>
+            </Button>
           </li>
         </ul>
       </div>

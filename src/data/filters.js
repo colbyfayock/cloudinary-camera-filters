@@ -1,0 +1,23 @@
+export const FILTERS_ART = [
+  'al_dente',
+  'athena',
+  'audrey',
+  'aurora',
+  'daguerre',
+  'eucalyptus',
+  'fes',
+  'frost',
+  'hairspray',
+  'hokusai',
+  'incognito',
+  'linen',
+  'peacock',
+  'primavera',
+  'quartz',
+  'red_rock',
+  'refresh',
+  'sizzle',
+  'sonnet',
+  'ukulele',
+  'zorro'
+];
